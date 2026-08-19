@@ -100,6 +100,13 @@
 
 <div class="section" id="method">
   <h2>Method</h2>
+  <figure class="architecture">
+    <img src="assets/architecture.png" alt="Architecture of the gated state transition operator">
+    <p class="caption">Architecture of GSTO. The observed history is encoded, decoded into an
+      explicit engineering state with an observability mask, and combined with the member properties
+      and the commanded half cycle to predict the response, the next state, the response spread, and
+      the probability of strength loss.</p>
+  </figure>
   <div class="module-list">
     <p><strong>M1. Causal history encoder.</strong>
       A masked attention encoder maps the displacement and force samples that occur strictly before
@@ -126,13 +133,6 @@
       0.90, and the calibrated probability follows the observed frequency of strength loss across
       bands of peak imposed drift with a mean absolute deviation of 0.049.</p>
   </div>
-  <figure class="architecture">
-    <img src="assets/architecture.png" alt="Architecture of the gated state transition operator">
-    <p class="caption">Architecture of GSTO. The observed history is encoded, decoded into an
-      explicit engineering state with an observability mask, and combined with the member properties
-      and the commanded half cycle to predict the response, the next state, the response spread, and
-      the probability of strength loss.</p>
-  </figure>
 </div>
 
 <div class="section wide" id="predictor">
