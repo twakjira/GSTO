@@ -221,7 +221,7 @@
       x: [], y: [],
       mode: "lines",
       line: { color: "#334155", width: 1.5, dash: "dash" },
-      name: "Measured",
+      name: "Experimental",
       hovertemplate: "drift %{x:.2f}%<br>force %{y:.1f} kN<extra></extra>",
       type: "scatter"
     };
@@ -229,7 +229,7 @@
       x: [], y: [],
       mode: "lines",
       line: { color: ACCENT, width: 1.8 },
-      name: "Reconstructed",
+      name: "Predicted",
       hovertemplate: "drift %{x:.2f}%<br>force %{y:.1f} kN<extra></extra>",
       type: "scatter"
     };
