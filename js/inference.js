@@ -97,7 +97,8 @@
     );
     const result = {
       drift: [], force: [], lower: [], upper: [],
-      peaks: [], probability: [], energy: 0, halfCycles: segments.length
+      peaks: [], probability: [], energy: 0, halfCycles: segments.length,
+      segmentLength: meta.segment_length
     };
 
     for (let index = 0; index < segments.length; index += 1) {

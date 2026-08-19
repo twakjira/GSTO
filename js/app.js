@@ -20,6 +20,8 @@
   const DEFAULT_AMPLITUDES = "0.5, 1, 1.5, 2, 3, 4, 5, 6";
   const DEFAULT_CYCLES = "2";
 
+  let lastResult = null;
+
   function $(id) { return document.getElementById(id); }
   function fmt(value, digits) { return Number(value).toFixed(digits == null ? 1 : digits); }
 
@@ -147,11 +149,16 @@
     try {
       const started = performance.now();
       const result = await window.GSTO.rollout(readDesign(), readAmplitudes(), readCycles());
-      const points = window.GSTOVIZ.draw(result);
+      lastResult = result;
+      const points = window.GSTOVIZ.draw(result, $("show-band").checked);
       $("r-peak").textContent = fmt(Math.max.apply(null, result.force.map(Math.abs)), 1);
       const crossing = window.GSTOVIZ.crossing(points);
       $("r-drift").textContent = crossing === null ? "beyond the protocol" : fmt(crossing, 2);
       $("r-energy").textContent = fmt(Math.abs(result.energy) / 1000, 1);
+      const half = result.upper.map(function (value, index) {
+        return 0.5 * (value - result.lower[index]);
+      });
+      $("r-band").textContent = fmt(half.reduce(function (a, b) { return a + b; }, 0) / half.length, 1);
       $("r-steps").textContent = String(result.halfCycles);
       $("results").classList.remove("hidden");
       $("plot-block").classList.remove("hidden");
@@ -189,6 +196,9 @@
     $("btn-predict").addEventListener("click", onPredict);
     $("btn-reset").addEventListener("click", resetInputs);
     $("f-amplitudes").addEventListener("input", flagExtrapolation);
+    $("show-band").addEventListener("change", function () {
+      if (lastResult) window.GSTOVIZ.draw(lastResult, $("show-band").checked);
+    });
     await onPredict();
   }
 

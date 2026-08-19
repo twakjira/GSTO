@@ -138,10 +138,10 @@
   <div class="predictor-card">
     <div class="predictor-header">
       <div class="predictor-header-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><path d="M3 13h2l3-8 4 16 3-10 2 5h4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><ellipse cx="12" cy="12" rx="3.1" ry="8.6" transform="rotate(-38 12 12)"/><ellipse cx="12" cy="12" rx="5.6" ry="10.4" transform="rotate(-38 12 12)"/></svg>
       </div>
       <div class="predictor-header-text">
-        <div class="predictor-eyebrow"><span class="live-pulse" aria-hidden="true"></span>Interactive predictor &middot; live in-browser</div>
+        <div class="predictor-eyebrow"><span class="live-pulse" aria-hidden="true"></span>Interactive predictor</div>
         <h1 class="predictor-title">GSTO Predictor</h1>
         <div class="predictor-subtitle">The complete cyclic response is generated half cycle by half
           cycle from the member properties and the commanded protocol alone, with no measured
@@ -186,17 +186,29 @@
         <div class="result-value"><span id="r-energy">&mdash;</span> <span class="unit">kN m</span></div>
       </div>
       <div class="result-row">
+        <div class="result-label">Mean 90% band half-width</div>
+        <div class="result-value">&plusmn;<span id="r-band">&mdash;</span> <span class="unit">kN</span></div>
+      </div>
+      <div class="result-row">
         <div class="result-label">Half cycles generated</div>
         <div class="result-value"><span id="r-steps">&mdash;</span></div>
       </div>
     </div>
 
     <div id="plot-block" class="plot-block hidden">
-      <div id="hysteresis-plot"></div>
-      <p class="caption">Predicted force response with the 90% prediction band from the response
-        variance.</p>
-      <div id="fragility-plot"></div>
-      <p class="caption">Predicted probability of strength loss against peak imposed drift ratio.</p>
+      <label class="band-toggle"><input type="checkbox" id="show-band"> Show the 90% prediction band on the response</label>
+      <div class="plot-grid">
+        <figure class="plot-item">
+          <div id="hysteresis-plot"></div>
+          <figcaption class="caption">Predicted force response with the 90% prediction band from the
+            response variance.</figcaption>
+        </figure>
+        <figure class="plot-item">
+          <div id="fragility-plot"></div>
+          <figcaption class="caption">Probability of strength loss against peak imposed drift ratio,
+            evaluated for each amplitude and accumulated over the preceding cycles.</figcaption>
+        </figure>
+      </div>
     </div>
   </div>
 </div>

@@ -3,7 +3,7 @@
 
   const ACCENT = "#4A90D9";
   const GREEN = "#2aa876";
-  const BAND = "rgba(74,144,217,0.18)";
+  const BAND = "rgba(74,144,217,0.15)";
   const FONT = { family: "Noto Sans, Helvetica, Arial, sans-serif", size: 14, color: "#333" };
 
   const LAYOUT = {
@@ -30,11 +30,33 @@
 
   const CONFIG = { displayModeBar: false, responsive: true };
 
-  function hysteresis(result) {
+  function ribbon(drift, lower, upper, length) {
+    const x = [];
+    const y = [];
+    for (let start = 0; start < drift.length; start += length) {
+      const end = Math.min(start + length, drift.length);
+      for (let index = start; index < end; index += 1) {
+        x.push(drift[index]);
+        y.push(upper[index]);
+      }
+      for (let index = end - 1; index >= start; index -= 1) {
+        x.push(drift[index]);
+        y.push(lower[index]);
+      }
+      x.push(drift[start]);
+      y.push(upper[start]);
+      x.push(null);
+      y.push(null);
+    }
+    return { x: x, y: y };
+  }
+
+  function hysteresis(result, showBand) {
     const drift = result.drift.map(function (value) { return value * 100; });
+    const path = ribbon(drift, result.lower, result.upper, result.segmentLength);
     const band = {
-      x: drift.concat(drift.slice().reverse()),
-      y: result.upper.concat(result.lower.slice().reverse()),
+      x: path.x,
+      y: path.y,
       fill: "toself",
       fillcolor: BAND,
       line: { width: 0 },
@@ -51,45 +73,74 @@
       hovertemplate: "drift %{x:.2f}%<br>force %{y:.1f} kN<extra></extra>",
       type: "scatter"
     };
+    const driftBound = Math.max.apply(null, drift.map(Math.abs)) * 1.06;
+    const spread = showBand ? path.y.filter(function (value) { return value !== null; }) : result.force;
+    const forceBound = Math.max.apply(null, spread.map(Math.abs)) * 1.06;
+    const xRange = [-driftBound, driftBound];
+    const yRange = [-forceBound, forceBound];
     const layout = Object.assign({}, LAYOUT, {
-      height: 520,
-      xaxis: Object.assign({}, AXIS, { title: { text: "Drift ratio (%)" } }),
-      yaxis: Object.assign({}, AXIS, { title: { text: "Force (kN)" } })
+      height: 460,
+      xaxis: Object.assign({}, AXIS, { title: { text: "Drift ratio (%)" }, range: xRange, automargin: true }),
+      yaxis: Object.assign({}, AXIS, { title: { text: "Force (kN)" }, range: yRange, automargin: true })
     });
-    Plotly.react("hysteresis-plot", [band, curve], layout, CONFIG);
+    Plotly.react("hysteresis-plot", showBand ? [band, curve] : [curve], layout, CONFIG);
   }
 
   function fragilityPoints(result) {
-    const grouped = new Map();
-    result.peaks.forEach(function (peak, index) {
-      const key = Math.round(peak * 100000) / 1000;
-      const bucket = grouped.get(key) || [];
-      bucket.push(result.probability[index]);
-      grouped.set(key, bucket);
-    });
-    return Array.from(grouped.keys()).sort(function (a, b) { return a - b; }).map(function (key) {
-      const bucket = grouped.get(key);
+    const points = [];
+    let survival = 1;
+    let index = 0;
+    while (index < result.peaks.length) {
+      const peak = result.peaks[index];
+      const bucket = [];
+      while (index < result.peaks.length && result.peaks[index] === peak) {
+        survival *= 1 - result.probability[index];
+        bucket.push(result.probability[index]);
+        index += 1;
+      }
       const mean = bucket.reduce(function (a, b) { return a + b; }, 0) / bucket.length;
-      return { x: key, y: mean };
-    });
+      points.push({
+        x: Math.round(peak * 100000) / 1000,
+        y: mean,
+        cumulative: 1 - survival
+      });
+    }
+    return points;
   }
 
   function fragility(points) {
-    const trace = {
-      x: points.map(function (point) { return point.x; }),
+    const drift = points.map(function (point) { return point.x; });
+    const perAmplitude = {
+      x: drift,
       y: points.map(function (point) { return point.y; }),
       mode: "lines+markers",
-      line: { color: GREEN, width: 2 },
-      marker: { color: GREEN, size: 7 },
-      name: "Probability of strength loss",
+      line: { color: ACCENT, width: 1.8, dash: "dot" },
+      marker: { color: ACCENT, size: 6 },
+      name: "Per amplitude",
       hovertemplate: "peak drift %{x:.2f}%<br>probability %{y:.3f}<extra></extra>",
       type: "scatter"
     };
+    const cumulative = {
+      x: drift,
+      y: points.map(function (point) { return point.cumulative; }),
+      mode: "lines+markers",
+      line: { color: GREEN, width: 2.2 },
+      marker: { color: GREEN, size: 7 },
+      name: "Cumulative",
+      hovertemplate: "peak drift %{x:.2f}%<br>cumulative probability %{y:.3f}<extra></extra>",
+      type: "scatter"
+    };
     const layout = Object.assign({}, LAYOUT, {
-      height: 380,
-      showlegend: false,
-      xaxis: Object.assign({}, AXIS, { title: { text: "Peak imposed drift ratio (%)" } }),
-      yaxis: Object.assign({}, AXIS, { title: { text: "Probability of strength loss" }, range: [0, 1] }),
+      height: 460,
+      xaxis: Object.assign({}, AXIS, {
+        title: { text: "Peak imposed drift ratio (%)" },
+        automargin: true
+      }),
+      yaxis: Object.assign({}, AXIS, {
+        title: { text: "Probability of strength loss" },
+        range: [0, 1.02],
+        automargin: true
+      }),
       shapes: [{
         type: "line",
         xref: "paper",
@@ -100,22 +151,22 @@
         line: { color: "#cbd5e1", width: 1.2, dash: "dash" }
       }]
     });
-    Plotly.react("fragility-plot", [trace], layout, CONFIG);
+    Plotly.react("fragility-plot", [perAmplitude, cumulative], layout, CONFIG);
   }
 
   function crossing(points) {
     for (let index = 1; index < points.length; index += 1) {
       const a = points[index - 1];
       const b = points[index];
-      if ((a.y - 0.5) * (b.y - 0.5) <= 0 && b.y !== a.y) {
-        return a.x + ((0.5 - a.y) * (b.x - a.x)) / (b.y - a.y);
+      if ((a.cumulative - 0.5) * (b.cumulative - 0.5) <= 0 && b.cumulative !== a.cumulative) {
+        return a.x + ((0.5 - a.cumulative) * (b.x - a.x)) / (b.cumulative - a.cumulative);
       }
     }
     return null;
   }
 
-  function draw(result) {
-    hysteresis(result);
+  function draw(result, showBand) {
+    hysteresis(result, showBand);
     const points = fragilityPoints(result);
     fragility(points);
     return points;
