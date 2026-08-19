@@ -4,7 +4,7 @@
 
 ---
 
-### GSTO: Gated State Transition Operator for Interpretable Seismic Response and Fragility Prediction of Reinforced Concrete Columns
+### GSTO: Physics-Informed Gated State Transition Operator for Interpretable Seismic Response Prediction and Uncertainty Quantification of RC Columns
 
 <a href="https://twakjira.github.io/GSTO/" target="_blank" rel="noopener noreferrer"><img alt="Project page" src="https://img.shields.io/badge/PROJECT-PAGE-blue?style=for-the-badge"></a>
 <a href="#" target="_blank" rel="noopener noreferrer"><img alt="Paper" src="https://img.shields.io/badge/PAPER-UNDER%20REVIEW-red?style=for-the-badge"></a>
@@ -65,9 +65,9 @@ acceptance.
 
 ```
 @article{wakjira2026gsto,
-    title   = {GSTO: Gated State Transition Operator for Interpretable
-               Seismic Response and Fragility Prediction of Reinforced
-               Concrete Columns},
+    title   = {GSTO: Physics-Informed Gated State Transition Operator for
+               Interpretable Seismic Response Prediction and Uncertainty
+               Quantification of RC Columns},
     author  = {Wakjira, Tadesse G.},
     journal = {Under Review},
     year    = {2026}
