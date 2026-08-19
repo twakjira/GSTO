@@ -9,7 +9,7 @@
 <a href="https://twakjira.github.io/PI-GSTO/" target="_blank" rel="noopener noreferrer"><img alt="Project page" src="https://img.shields.io/badge/PROJECT-PAGE-blue?style=for-the-badge"></a>
 <a href="#" target="_blank" rel="noopener noreferrer"><img alt="Paper" src="https://img.shields.io/badge/PAPER-UNDER%20REVIEW-red?style=for-the-badge"></a>
 
-<a href="https://ai4riselab.com" target="_blank" rel="noopener noreferrer">Tadesse G. Wakjira</a>
+<a href="https://ai4riselab.com" target="_blank" rel="noopener noreferrer">Tadesse G. Wakjira</a>, <a href="https://hanagoshu.com" target="_blank" rel="noopener noreferrer">Hana L. Goshu</a>
 
 *Under Review*
 
@@ -68,15 +68,17 @@ acceptance.
     title   = {PI-GSTO: Physics-Informed Gated State Transition Operator for
                Interpretable Seismic Response Prediction and Uncertainty
                Quantification of RC Columns},
-    author  = {Wakjira, Tadesse G.},
+    author  = {Wakjira, Tadesse G. and Goshu, Hana L.},
     journal = {Under Review},
     year    = {2026}
 }
 ```
 
-## Author
+## Authors
 
 <strong><a href="https://ai4riselab.com" target="_blank" rel="noopener noreferrer">Tadesse G. Wakjira</a></strong>, AI4RISE Lab, Department of Civil and Environmental Engineering, Kennesaw State University
+
+<strong><a href="https://hanagoshu.com" target="_blank" rel="noopener noreferrer">Hana L. Goshu</a></strong>, Department of Electrical and Electronic Engineering, The Hong Kong Polytechnic University
 
 ## Development
 
