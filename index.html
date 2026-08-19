@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gated State Transition Operator for Interpretable Seismic Response, Strength Loss, and Fragility Prediction of Reinforced Concrete Columns</title>
-<meta name="description" content="Gated state transition operator (GSTO) for interpretable seismic response, strength loss, and fragility prediction of reinforced concrete columns.">
+<title>GSTO: Gated State Transition Operator for Interpretable Seismic Response and Fragility Prediction of Reinforced Concrete Columns</title>
+<meta name="description" content="Gated state transition operator (GSTO) for interpretable seismic response and fragility prediction of reinforced concrete columns.">
 <meta name="author" content="Tadesse G. Wakjira">
 <meta name="keywords" content="reinforced concrete column, cyclic response, seismic response prediction, structural digital twin, fragility, conformal prediction, interpretable machine learning, AI4RISE Lab">
 <link rel="canonical" href="https://twakjira.github.io/GSTO/">
 
 <meta property="og:type" content="article">
-<meta property="og:title" content="Gated State Transition Operator for Interpretable Seismic Response, Strength Loss, and Fragility Prediction of Reinforced Concrete Columns">
+<meta property="og:title" content="GSTO: Gated State Transition Operator for Interpretable Seismic Response and Fragility Prediction of Reinforced Concrete Columns">
 <meta property="og:description" content="An interpretable engineering state that predicts the cyclic response, the strength loss probability, and the fragility of RC columns, with a force NRMSE of 0.657 on an independent database.">
 <meta property="og:url" content="https://twakjira.github.io/GSTO/">
 <meta property="og:image" content="https://twakjira.github.io/GSTO/assets/architecture.png">
@@ -51,7 +51,7 @@
 
 <div class="section title-section fadein">
   <h1 class="project-title">
-    <span class="accent">Gated State Transition Operator</span> for Interpretable Seismic Response, Strength Loss, and Fragility Prediction of Reinforced Concrete Columns
+    <span class="accent">GSTO</span>: Gated State Transition Operator for Interpretable Seismic Response and Fragility Prediction of Reinforced Concrete Columns
   </h1>
   <div class="authors">
     <a href="https://ai4riselab.com" target="_blank" rel="noopener">Tadesse G. Wakjira</a>
@@ -214,12 +214,41 @@
   </div>
 </div>
 
+<div class="section wide" id="external">
+  <div class="predictor-card">
+    <div class="predictor-header">
+      <div class="predictor-header-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><ellipse cx="12" cy="12" rx="3.1" ry="8.6" transform="rotate(-38 12 12)"/><ellipse cx="12" cy="12" rx="5.6" ry="10.4" transform="rotate(-38 12 12)"/></svg>
+      </div>
+      <div class="predictor-header-text">
+        <div class="predictor-eyebrow">External evaluation</div>
+        <h2 class="predictor-title">Measured against predicted</h2>
+        <div class="predictor-subtitle">Specimens of the independent external database, from testing
+          programs excluded from training in their entirety. The response is rebuilt half cycle by
+          half cycle without measured feedback, and the two records are traced together from the
+          first half cycle to the complete hysteresis.</div>
+      </div>
+    </div>
+
+    <div class="external-controls">
+      <label>Specimen
+        <select id="external-case"></select>
+      </label>
+      <button id="btn-replay" class="btn" type="button">Replay</button>
+      <span id="external-note" class="external-note"></span>
+    </div>
+    <div id="external-plot"></div>
+    <p class="caption">Measured and predicted response of an unseen specimen, traced together from
+      zero to the complete hysteresis.</p>
+  </div>
+</div>
+
 <div class="section">
   <h2>Citation</h2>
 <pre class="citation-block"><code>@article{wakjira2026gsto,
-  title   = {Gated State Transition Operator for Interpretable Seismic
-             Response, Strength Loss, and Fragility Prediction of
-             Reinforced Concrete Columns},
+  title   = {GSTO: Gated State Transition Operator for Interpretable
+             Seismic Response and Fragility Prediction of Reinforced
+             Concrete Columns},
   author  = {Wakjira, Tadesse G.},
   journal = {Under Review},
   year    = {2026}

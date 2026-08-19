@@ -201,6 +201,12 @@
       if (lastResult) window.GSTOVIZ.draw(lastResult, $("show-band").checked);
     });
     await onPredict();
+    try {
+      await window.GSTOVIZ.initExternal();
+    } catch (error) {
+      const note = $("external-note");
+      if (note) note.textContent = "The external records could not be loaded: " + error.message;
+    }
   }
 
   if (document.readyState === "loading") {

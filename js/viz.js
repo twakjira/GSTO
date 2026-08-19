@@ -167,8 +167,102 @@
     return null;
   }
 
+
+  const external = { cases: null, index: 0, cursor: 0, timer: null };
+
+  function externalLayout(item) {
+    const driftBound = Math.max.apply(null, item.drift.map(Math.abs)) * 1.06;
+    const forceBound = Math.max(
+      Math.max.apply(null, item.measured.map(Math.abs)),
+      Math.max.apply(null, item.predicted.map(Math.abs))
+    ) * 1.08;
+    return Object.assign({}, LAYOUT, {
+      height: 540,
+      xaxis: Object.assign({}, AXIS, {
+        title: { text: "Drift ratio (%)" },
+        range: [-driftBound, driftBound],
+        automargin: true
+      }),
+      yaxis: Object.assign({}, AXIS, {
+        title: { text: "Force (kN)" },
+        range: [-forceBound, forceBound],
+        automargin: true
+      })
+    });
+  }
+
+  function externalFrame() {
+    const item = external.cases[external.index];
+    const total = item.drift.length;
+    const stride = Math.max(6, Math.round(total / 220));
+    external.cursor = Math.min(external.cursor + stride, total);
+    const cut = external.cursor;
+    Plotly.restyle("external-plot", {
+      x: [item.drift.slice(0, cut), item.drift.slice(0, cut)],
+      y: [item.measured.slice(0, cut), item.predicted.slice(0, cut)]
+    }, [0, 1]);
+    if (cut >= total) {
+      external.timer = setTimeout(function () {
+        external.cursor = 0;
+        external.timer = setTimeout(externalFrame, 60);
+      }, 1400);
+      return;
+    }
+    external.timer = setTimeout(externalFrame, 32);
+  }
+
+  function playExternal(index) {
+    if (!external.cases || !external.cases.length) return;
+    if (external.timer) clearTimeout(external.timer);
+    external.index = Math.max(0, Math.min(index, external.cases.length - 1));
+    external.cursor = 0;
+    const item = external.cases[external.index];
+    const measured = {
+      x: [], y: [],
+      mode: "lines",
+      line: { color: "#334155", width: 1.5, dash: "dash" },
+      name: "Measured",
+      hovertemplate: "drift %{x:.2f}%<br>force %{y:.1f} kN<extra></extra>",
+      type: "scatter"
+    };
+    const predicted = {
+      x: [], y: [],
+      mode: "lines",
+      line: { color: ACCENT, width: 1.8 },
+      name: "Predicted",
+      hovertemplate: "drift %{x:.2f}%<br>force %{y:.1f} kN<extra></extra>",
+      type: "scatter"
+    };
+    Plotly.react("external-plot", [measured, predicted], externalLayout(item), CONFIG);
+    const note = document.getElementById("external-note");
+    if (note) {
+      note.textContent = item.program + " · " + item.half_cycles +
+        " half cycles · force NRMSE " + item.force_nrmse.toFixed(3);
+    }
+    external.timer = setTimeout(externalFrame, 120);
+  }
+
+  async function initExternal() {
+    const response = await fetch("model/external.json");
+    if (!response.ok) throw new Error("external.json not found");
+    const payload = await response.json();
+    external.cases = payload.cases;
+    const select = document.getElementById("external-case");
+    select.innerHTML = "";
+    external.cases.forEach(function (item, index) {
+      const option = document.createElement("option");
+      option.value = String(index);
+      option.textContent = item.specimen.split("_").pop();
+      select.appendChild(option);
+    });
+    select.addEventListener("change", function () { playExternal(Number(select.value)); });
+    const replay = document.getElementById("btn-replay");
+    if (replay) replay.addEventListener("click", function () { playExternal(external.index); });
+    playExternal(0);
+  }
+
   function resize() {
-    ["hysteresis-plot", "fragility-plot"].forEach(function (id) {
+    ["hysteresis-plot", "fragility-plot", "external-plot"].forEach(function (id) {
       const node = document.getElementById(id);
       if (node && node.data) Plotly.Plots.resize(node);
     });
@@ -182,5 +276,5 @@
     return points;
   }
 
-  global.GSTOVIZ = { draw: draw, crossing: crossing, resize: resize };
+  global.GSTOVIZ = { draw: draw, crossing: crossing, resize: resize, initExternal: initExternal };
 })(window);
