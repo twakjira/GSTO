@@ -80,7 +80,7 @@
   }
 
   async function rollout(design, amplitudes, cycles) {
-    if (!session || !meta) throw new Error("the operator is not loaded");
+    if (!session || !meta) throw new Error("the model is not loaded");
     const historyLength = meta.history_length;
     const forceScale = meta.stats.response.std[0];
     const stateSize = meta.stats.state.mean.length;

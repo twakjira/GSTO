@@ -19,14 +19,13 @@
 
 ## Overview
 
-GSTO is an interpretable state transition operator for the cyclic response of
-reinforced concrete (RC) columns. A causally masked history encoder maps the
-displacement and force samples observed before a transition to a supervised
-engineering state of sixteen named variables, each carrying an observability
-mask, and a gated residual route carries whatever that state cannot. The state,
-the member properties, and the commanded half cycle are then combined to predict
-the force trajectory, the state evolution, the response variance, and the
-probability of a declared loss of strength condition.
+GSTO is an interpretable model for the cyclic response of reinforced concrete (RC)
+columns. A causally masked history encoder maps the displacement and force samples
+observed before a transition to a supervised engineering state of sixteen named
+variables, each carrying an observability mask, and a gated residual route carries
+whatever that state cannot. The state, the member properties, and the commanded half
+cycle are then combined to predict the force trajectory, the state evolution, the
+response variance, and the probability of a declared loss of strength condition.
 
 On an independent external database of 1272 transitions from 37 specimens and 17
 testing programs, GSTO reaches a force NRMSE of 0.657 ± 0.032 against 1.324 ±
@@ -42,8 +41,7 @@ the <a href="https://twakjira.github.io/GSTO/" target="_blank" rel="noopener nor
 
 The manuscript is currently under review. Full source code, training scripts,
 processed data format, and program partitions will be released upon paper
-acceptance. The trained operator served by the project page is provided for
-evaluation of the method.
+acceptance.
 
 ## Architectural contributions
 
@@ -51,7 +49,7 @@ evaluation of the method.
 |---|---|
 | M1 | Causally masked history encoder, so no future sample enters the prediction |
 | M2 | Supervised engineering state of sixteen named variables with an explicit observability mask |
-| M3 | Gated residual route, initialized open and free to close, which measures the reliance on the raw record |
+| M3 | Gated residual route, initialized open and free to close, so the reliance on the raw record is quantified instead of assumed |
 | M4 | Protocol encoder for the commanded next half cycle, which is causal by construction |
 | M5 | Four heads from one shared context, with the first predicted force tied to the last observed force |
 | M6 | Cross-program conformal calibration and a fragility relation from the same model that predicts the response |

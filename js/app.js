@@ -185,11 +185,11 @@
       buildForm();
       flagExtrapolation();
       status.classList.add("ready");
-      status.textContent = "Operator ready. Trained on " + meta.training_transitions +
+      status.textContent = "Model ready. Trained on " + meta.training_transitions +
         " transitions from " + meta.training_specimens + " specimens.";
       $("btn-predict").disabled = false;
     } catch (error) {
-      status.textContent = "Failed to load the operator: " + error.message;
+      status.textContent = "Failed to load the model: " + error.message;
       status.classList.add("error");
       return;
     }
