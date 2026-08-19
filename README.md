@@ -1,12 +1,12 @@
 <div align="center">
 
-# GSTO
+# PI-GSTO
 
 ---
 
-### GSTO: Physics-Informed Gated State Transition Operator for Interpretable Seismic Response Prediction and Uncertainty Quantification of RC Columns
+### PI-GSTO: Physics-Informed Gated State Transition Operator for Interpretable Seismic Response Prediction and Uncertainty Quantification of RC Columns
 
-<a href="https://twakjira.github.io/GSTO/" target="_blank" rel="noopener noreferrer"><img alt="Project page" src="https://img.shields.io/badge/PROJECT-PAGE-blue?style=for-the-badge"></a>
+<a href="https://twakjira.github.io/PI-GSTO/" target="_blank" rel="noopener noreferrer"><img alt="Project page" src="https://img.shields.io/badge/PROJECT-PAGE-blue?style=for-the-badge"></a>
 <a href="#" target="_blank" rel="noopener noreferrer"><img alt="Paper" src="https://img.shields.io/badge/PAPER-UNDER%20REVIEW-red?style=for-the-badge"></a>
 
 <a href="https://ai4riselab.com" target="_blank" rel="noopener noreferrer">Tadesse G. Wakjira</a>
@@ -19,7 +19,7 @@
 
 ## Overview
 
-GSTO is an interpretable model for the cyclic response of reinforced concrete (RC)
+PI-GSTO is an interpretable model for the cyclic response of reinforced concrete (RC)
 columns. A causally masked history encoder maps the displacement and force samples
 observed before a transition to a supervised engineering state of sixteen named
 variables, each carrying an observability mask, and a gated residual route carries
@@ -28,14 +28,14 @@ cycle are then combined to predict the force trajectory, the state evolution, th
 response variance, and the probability of a declared loss of strength condition.
 
 On an independent external database of 1272 transitions from 37 specimens and 17
-testing programs, GSTO reaches a force NRMSE of 0.657 ± 0.032 against 1.324 ±
+testing programs, PI-GSTO reaches a force NRMSE of 0.657 ± 0.032 against 1.324 ±
 0.303 for the strongest baseline, reduces peak force error by 61.6% and envelope
 NRMSE by 75.0%, reproduces the complete response from the design variables and
 the protocol alone with a force NRMSE of 0.691, and gives conformal intervals
 with an empirical coverage of 0.977 at a nominal level of 0.90.
 
 An interactive predictor and a static description of the work are available at
-the <a href="https://twakjira.github.io/GSTO/" target="_blank" rel="noopener noreferrer">project page</a>.
+the <a href="https://twakjira.github.io/PI-GSTO/" target="_blank" rel="noopener noreferrer">project page</a>.
 
 ## Status
 
@@ -65,7 +65,7 @@ acceptance.
 
 ```
 @article{wakjira2026gsto,
-    title   = {GSTO: Physics-Informed Gated State Transition Operator for
+    title   = {PI-GSTO: Physics-Informed Gated State Transition Operator for
                Interpretable Seismic Response Prediction and Uncertainty
                Quantification of RC Columns},
     author  = {Wakjira, Tadesse G.},

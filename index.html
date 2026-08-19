@@ -3,23 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GSTO: Physics-Informed Gated State Transition Operator for Interpretable Seismic Response Prediction and Uncertainty Quantification of RC Columns</title>
-<meta name="description" content="Physics-informed gated state transition operator (GSTO) for interpretable seismic response prediction and uncertainty quantification of RC columns.">
+<title>PI-GSTO: Physics-Informed Gated State Transition Operator for Interpretable Seismic Response Prediction and Uncertainty Quantification of RC Columns</title>
+<meta name="description" content="Physics-informed gated state transition operator (PI-GSTO) for interpretable seismic response prediction and uncertainty quantification of RC columns.">
 <meta name="author" content="Tadesse G. Wakjira">
 <meta name="keywords" content="reinforced concrete column, cyclic response, seismic response prediction, structural digital twin, fragility, conformal prediction, interpretable machine learning, AI4RISE Lab">
-<link rel="canonical" href="https://twakjira.github.io/GSTO/">
+<link rel="canonical" href="https://twakjira.github.io/PI-GSTO/">
 
 <meta property="og:type" content="article">
-<meta property="og:title" content="GSTO: Physics-Informed Gated State Transition Operator for Interpretable Seismic Response Prediction and Uncertainty Quantification of RC Columns">
+<meta property="og:title" content="PI-GSTO: Physics-Informed Gated State Transition Operator for Interpretable Seismic Response Prediction and Uncertainty Quantification of RC Columns">
 <meta property="og:description" content="An interpretable engineering state that predicts the cyclic response, the strength loss probability, and the fragility of RC columns, with a force NRMSE of 0.657 on an independent database.">
-<meta property="og:url" content="https://twakjira.github.io/GSTO/">
-<meta property="og:image" content="https://twakjira.github.io/GSTO/assets/architecture.png">
-<meta property="og:site_name" content="GSTO">
+<meta property="og:url" content="https://twakjira.github.io/PI-GSTO/">
+<meta property="og:image" content="https://twakjira.github.io/PI-GSTO/assets/architecture.png">
+<meta property="og:site_name" content="PI-GSTO">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="GSTO for Interpretable Seismic Response of RC Columns">
+<meta name="twitter:title" content="PI-GSTO for Interpretable Seismic Response of RC Columns">
 <meta name="twitter:description" content="Interpretable model for the cyclic response, strength loss, and fragility of reinforced concrete columns.">
-<meta name="twitter:image" content="https://twakjira.github.io/GSTO/assets/architecture.png">
+<meta name="twitter:image" content="https://twakjira.github.io/PI-GSTO/assets/architecture.png">
 
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -51,7 +51,7 @@
 
 <div class="section title-section fadein">
   <h1 class="project-title">
-    <span class="accent">GSTO</span>: Physics-Informed Gated State Transition Operator for Interpretable Seismic Response Prediction and Uncertainty Quantification of RC Columns
+    <span class="accent">PI-GSTO</span>: Physics-Informed Gated State Transition Operator for Interpretable Seismic Response Prediction and Uncertainty Quantification of RC Columns
   </h1>
   <div class="authors">
     <a href="https://ai4riselab.com" target="_blank" rel="noopener">Tadesse G. Wakjira</a>
@@ -63,7 +63,7 @@
     <a class="pill pill-paper pill-disabled" href="#" onclick="return false;"><svg class="pill-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Paper</a>
     <a class="pill pill-predictor" href="#predictor"><svg class="pill-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 4 14 12 14 11 22 20 10 12 10 13 2"/></svg>Predictor</a>
     <a class="pill pill-method" href="#method"><svg class="pill-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l2.5 2.5"/></svg>Method</a>
-    <a class="pill pill-code" href="https://github.com/twakjira/GSTO" target="_blank" rel="noopener noreferrer"><svg class="pill-icon" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>Code</a>
+    <a class="pill pill-code" href="https://github.com/twakjira/PI-GSTO" target="_blank" rel="noopener noreferrer"><svg class="pill-icon" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>Code</a>
     <a class="pill pill-data" href="https://peer.berkeley.edu/spd" target="_blank" rel="noopener noreferrer"><svg class="pill-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/><path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"/></svg>PEER Database</a>
     <a class="pill pill-data" href="https://doi.org/10.17603/ds2-x1z4-nq68" target="_blank" rel="noopener noreferrer"><svg class="pill-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/><path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"/></svg>DesignSafe PRJ-6069</a>
   </div>
@@ -78,7 +78,7 @@
     state, yet whether such a state preserves its predictive information has never been established,
     and models learned from one database are rarely tested on another. Therefore, this study
     formulates loading history sufficiency as a next half-cycle prediction problem and proposes the
-    gated state transition operator (GSTO), an interpretable model that maps the observed response
+    physics-informed gated state transition operator (PI-GSTO), an interpretable model that maps the observed response
     to engineering state variables. These variables are then combined with member properties and the
     prescribed half cycle to predict the force trajectory, the state evolution, the probability of
     strength loss, and the response uncertainty. The model was evaluated on an independent test
@@ -101,8 +101,8 @@
 <div class="section" id="method">
   <h2>Method</h2>
   <figure class="architecture">
-    <img src="assets/architecture.png" alt="Architecture of the gated state transition operator">
-    <p class="caption">Architecture of GSTO. The observed history is encoded, decoded into an
+    <img src="assets/architecture.png" alt="Architecture of the physics-informed gated state transition operator">
+    <p class="caption">Architecture of PI-GSTO. The observed history is encoded, decoded into an
       explicit engineering state with an observability mask, and combined with the member properties
       and the commanded half cycle to predict the response, the next state, the response spread, and
       the probability of strength loss.</p>
@@ -140,7 +140,7 @@
     <div class="predictor-header">
       <div class="predictor-header-text">
         <div class="predictor-eyebrow"><span class="live-pulse" aria-hidden="true"></span>Interactive predictor</div>
-        <h1 class="predictor-title">GSTO Predictor</h1>
+        <h1 class="predictor-title">PI-GSTO Predictor</h1>
         <div class="predictor-subtitle">The complete cyclic response is generated half cycle by half
           cycle from the member properties and the commanded protocol alone, with no experimental
           feedback at any step.</div>
@@ -241,7 +241,7 @@
 <div class="section">
   <h2>Citation</h2>
 <pre class="citation-block"><code>@article{wakjira2026gsto,
-  title   = {GSTO: Physics-Informed Gated State Transition Operator for
+  title   = {PI-GSTO: Physics-Informed Gated State Transition Operator for
              Interpretable Seismic Response Prediction and Uncertainty
              Quantification of RC Columns},
   author  = {Wakjira, Tadesse G.},
