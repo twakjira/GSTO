@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GSTO — Gated State Transition Operator</title>
+<meta name="description" content="Interpretable seismic response, strength loss, and fragility prediction of reinforced concrete columns.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap nav">
+    <span class="brand">GSTO</span>
+    <nav>
+      <a href="#abstract">Paper</a>
+      <a href="#predictor">Predictor</a>
+      <a href="#method">Method</a>
+      <a href="#citation">Citation</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <h1>Gated State Transition Operator for Interpretable Seismic Response, Strength Loss, and Fragility Prediction of Reinforced Concrete Columns</h1>
+    <p class="authors">Tadesse G. Wakjira</p>
+    <p class="affil">AI4RISE Lab, Department of Civil and Environmental Engineering, Kennesaw State University, GA, USA</p>
+    <div class="tags">
+      <span>Force NRMSE 0.657</span>
+      <span>Peak force error &minus;61.6%</span>
+      <span>Free-running NRMSE 0.691</span>
+      <span>Coverage 0.977 at 0.90</span>
+      <span>Fragility MAD 0.049</span>
+    </div>
+  </div>
+</section>
+
+<section id="abstract" class="wrap block">
+  <h2>Abstract</h2>
+  <p>Structural digital twins update the condition of a reinforced concrete (RC) structure from measured response and then predict its subsequent response, so their reliability depends on how the prior loading is represented. Current practice replaces that history with a compact damage state, yet whether such a state preserves its predictive information has never been measured, and models learned from one database are rarely tested on another. Therefore, this study formulates loading history sufficiency as a next half-cycle prediction problem and proposes the gated state transition operator (GSTO), an interpretable model that maps the observed response to engineering state variables. These variables are then combined with member properties and the prescribed half cycle to predict the force trajectory, the state evolution, the probability of strength loss, and the response uncertainty. The model was evaluated on an independent test dataset of 1272 transitions, which was held out entirely from model development. GSTO achieves a force normalized root mean square error (NRMSE) of 0.657 &plusmn; 0.032, compared with 1.324 &plusmn; 0.303 for the strongest baseline, and reduces peak force error by 61.6% and envelope NRMSE by 75.0%. An explicit engineering state therefore supports response prediction, uncertainty quantification, and fragility assessment that transfer to unseen laboratories.</p>
+</section>
+
+<section id="predictor" class="wrap block">
+  <h2>GSTO Predictor</h2>
+  <p class="lead">The trained operator runs in the browser. Member properties and a cyclic drift protocol are supplied, and the complete response is generated half cycle by half cycle without any measured feedback.</p>
+
+  <div class="panel">
+    <div class="inputs">
+      <h3>Member properties</h3>
+      <div id="design" class="grid"></div>
+      <h3>Loading protocol</h3>
+      <div class="grid">
+        <label>Peak drift amplitudes (%)
+          <input id="amplitudes" type="text" value="0.5, 1, 1.5, 2, 3, 4, 5, 6">
+        </label>
+        <label>Cycles per amplitude
+          <input id="cycles" type="number" min="1" max="5" step="1" value="2">
+        </label>
+      </div>
+      <div class="actions">
+        <button id="run" class="primary">Predict</button>
+        <button id="reset">Reset to defaults</button>
+      </div>
+      <p id="status" class="status">Loading the trained operator&hellip;</p>
+    </div>
+
+    <div class="outputs">
+      <div class="cards">
+        <div class="card"><span class="k" id="peak">&mdash;</span><span class="v">Peak force (kN)</span></div>
+        <div class="card"><span class="k" id="driftloss">&mdash;</span><span class="v">Drift at 50% strength-loss probability (%)</span></div>
+        <div class="card"><span class="k" id="energy">&mdash;</span><span class="v">Dissipated energy (kN m)</span></div>
+      </div>
+      <figure>
+        <canvas id="hysteresis" width="720" height="470"></canvas>
+        <figcaption>Predicted force response with the 90% prediction band.</figcaption>
+      </figure>
+      <figure>
+        <canvas id="fragility" width="720" height="330"></canvas>
+        <figcaption>Predicted probability of strength loss against peak imposed drift.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section id="method" class="wrap block">
+  <h2>Method</h2>
+  <div class="method">
+    <article><h4>Causal history encoder</h4><p>A masked attention encoder maps the displacement and force samples that occur strictly before the transition to a history embedding, so no future information enters the prediction.</p></article>
+    <article><h4>Supervised engineering state</h4><p>A state decoder maps that embedding to sixteen named quantities, among them residual drift, cumulative energy, strength ratios, stiffness ratios, and pinching measures, each supervised against its measured counterpart and each carrying an observability mask.</p></article>
+    <article><h4>Gated residual route</h4><p>A gated channel carries whatever the state cannot. The gate is free to close, so the reliance of the trained model on the raw record is measured instead of assumed.</p></article>
+    <article><h4>Protocol encoder</h4><p>The commanded next half cycle is known in advance, so a separate encoder models it together with the member properties.</p></article>
+    <article><h4>Four predicted quantities</h4><p>The transition module predicts the force trajectory, the updated state, the response variance, and the probability of a declared loss of strength condition, all from one shared context vector.</p></article>
+    <article><h4>Calibrated uncertainty and fragility</h4><p>Cross-program conformal calibration gives an empirical coverage of 0.977 at a nominal level of 0.90, and the calibrated probability follows the observed frequency of strength loss across bands of peak drift.</p></article>
+  </div>
+</section>
+
+<section id="citation" class="wrap block">
+  <h2>Citation</h2>
+<pre>@article{wakjira2026gsto,
+  title   = {Gated State Transition Operator for Interpretable Seismic Response,
+             Strength Loss, and Fragility Prediction of Reinforced Concrete Columns},
+  author  = {Wakjira, Tadesse G.},
+  journal = {Advanced Engineering Informatics},
+  year    = {2026},
+  note    = {Under review}
+}</pre>
+  <p class="note">The trained operator is provided here for evaluation of the method. The processed data format, program partitions, and analysis code will be deposited in a permanent repository with the accepted article.</p>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Tadesse G. Wakjira &mdash; AI4RISE Lab, Kennesaw State University</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.19.2/dist/ort.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
