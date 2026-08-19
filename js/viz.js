@@ -237,8 +237,7 @@
     const note = document.getElementById("external-note");
     if (note) {
       note.textContent = item.program + " · " + item.half_cycles +
-        " half cycles · force NRMSE " + item.force_nrmse.toFixed(3) +
-        " one half cycle ahead, " + item.free_running_nrmse.toFixed(3) + " free running";
+        " half cycles · force NRMSE " + item.force_nrmse.toFixed(3);
     }
     external.timer = setTimeout(externalFrame, 120);
   }
