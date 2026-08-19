@@ -229,7 +229,7 @@
       x: [], y: [],
       mode: "lines",
       line: { color: ACCENT, width: 1.8 },
-      name: "Predicted",
+      name: "Reconstructed",
       hovertemplate: "drift %{x:.2f}%<br>force %{y:.1f} kN<extra></extra>",
       type: "scatter"
     };
@@ -237,7 +237,8 @@
     const note = document.getElementById("external-note");
     if (note) {
       note.textContent = item.program + " · " + item.half_cycles +
-        " half cycles · force NRMSE " + item.force_nrmse.toFixed(3);
+        " half cycles · force NRMSE " + item.force_nrmse.toFixed(3) +
+        " one half cycle ahead, " + item.free_running_nrmse.toFixed(3) + " free running";
     }
     external.timer = setTimeout(externalFrame, 120);
   }
