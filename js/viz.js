@@ -10,7 +10,8 @@
     paper_bgcolor: "#fff",
     plot_bgcolor: "#fff",
     font: FONT,
-    margin: { l: 70, r: 24, t: 24, b: 60 },
+    margin: { l: 62, r: 18, t: 24, b: 56 },
+    autosize: true,
     showlegend: true,
     legend: { orientation: "h", x: 0, y: 1.12, font: { size: 13 } },
     hovermode: "closest"
@@ -134,7 +135,8 @@
       height: 460,
       xaxis: Object.assign({}, AXIS, {
         title: { text: "Peak imposed drift ratio (%)" },
-        automargin: true
+        automargin: true,
+        range: [0, Math.max.apply(null, drift) * 1.08]
       }),
       yaxis: Object.assign({}, AXIS, {
         title: { text: "Probability of strength loss" },
@@ -165,12 +167,20 @@
     return null;
   }
 
+  function resize() {
+    ["hysteresis-plot", "fragility-plot"].forEach(function (id) {
+      const node = document.getElementById(id);
+      if (node && node.data) Plotly.Plots.resize(node);
+    });
+  }
+
   function draw(result, showBand) {
     hysteresis(result, showBand);
     const points = fragilityPoints(result);
     fragility(points);
+    if (window.requestAnimationFrame) window.requestAnimationFrame(resize);
     return points;
   }
 
-  global.GSTOVIZ = { draw: draw, crossing: crossing };
+  global.GSTOVIZ = { draw: draw, crossing: crossing, resize: resize };
 })(window);

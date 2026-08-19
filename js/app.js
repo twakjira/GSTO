@@ -150,6 +150,8 @@
       const started = performance.now();
       const result = await window.GSTO.rollout(readDesign(), readAmplitudes(), readCycles());
       lastResult = result;
+      $("results").classList.remove("hidden");
+      $("plot-block").classList.remove("hidden");
       const points = window.GSTOVIZ.draw(result, $("show-band").checked);
       $("r-peak").textContent = fmt(Math.max.apply(null, result.force.map(Math.abs)), 1);
       const crossing = window.GSTOVIZ.crossing(points);
@@ -160,8 +162,6 @@
       });
       $("r-band").textContent = fmt(half.reduce(function (a, b) { return a + b; }, 0) / half.length, 1);
       $("r-steps").textContent = String(result.halfCycles);
-      $("results").classList.remove("hidden");
-      $("plot-block").classList.remove("hidden");
       const status = $("predictor-status");
       status.classList.remove("error");
       status.classList.add("ready");
@@ -196,6 +196,7 @@
     $("btn-predict").addEventListener("click", onPredict);
     $("btn-reset").addEventListener("click", resetInputs);
     $("f-amplitudes").addEventListener("input", flagExtrapolation);
+    window.addEventListener("resize", function () { window.GSTOVIZ.resize(); });
     $("show-band").addEventListener("change", function () {
       if (lastResult) window.GSTOVIZ.draw(lastResult, $("show-band").checked);
     });
